@@ -35,7 +35,7 @@ public class AppTest extends TestCase{
 //		Scenario scenarioTest1 = new Scenario();
 //        assertTrue( scenarioTest1.scenario1(apikey) );
 //    }
-    
+//    
     /**
      * Rigourous Test scenario 2:-)
      * @throws Exception 
@@ -44,44 +44,42 @@ public class AppTest extends TestCase{
 		Scenario scenarioTest2 = new Scenario();
         assertTrue( scenarioTest2.scenario2(apikey) );
     }
-    
-    /**
-     * Rigourous Test scenario 3:-)
-     * @throws Exception 
-     */
-    public void testAppScenario3() throws Exception{	
-		Scenario scenarioTest3 = new Scenario();
-        assertTrue( scenarioTest3.scenario3(apikey) );
-    }
-    
-    /**
-     * Rigourous Test scenario 3:-)
-     * @throws Exception 
-     */
-    public void testAppScenario4() throws Exception{	
-		Scenario scenarioTest4 = new Scenario();
-        assertTrue( scenarioTest4.scenario4(apikey) );
-    }
-    
-    /**
-     * Rigourous Test scenario 5:-)
-     * @throws Exception 
-     */
-    public void testAppScenario5() throws Exception{
-    	
- 
-    	Scenario scenarioTest5 = new Scenario();
-        assertFalse(scenarioTest5.scenario5(apikey));
-    }
-    
-    /**
-     * Rigourous Test scenario 6:-)
-     * @throws Exception 
-     */
-    public void testAppScenario6() throws Exception{
-    	Scenario scenarioTest6 = new Scenario();
-        assertFalse(scenarioTest6.scenario6(apikey));
-    }
-    
-
+//    
+//    /**
+//     * Rigourous Test scenario 3:-)
+//     * @throws Exception 
+//     */
+//    public void testAppScenario3() throws Exception{	
+//		Scenario scenarioTest3 = new Scenario();
+//        assertTrue( scenarioTest3.scenario3(apikey) );
+//    }
+//    
+//    /**
+//     * Rigourous Test scenario 4:-)
+//     * @throws Exception 
+//     */
+//    public void testAppScenario4() throws Exception{	
+//		Scenario scenarioTest4 = new Scenario();
+//        assertTrue( scenarioTest4.scenario4(apikey) );
+//    }
+//    
+//    /**
+//     * Rigourous Test scenario 5:-)
+//     * @throws Exception 
+//     */
+//    public void testAppScenario5() throws Exception{
+//    	
+// 
+//    	Scenario scenarioTest5 = new Scenario();
+//        assertFalse(scenarioTest5.scenario5(apikey));
+//    }
+//    
+//    /**
+//     * Rigourous Test scenario 6:-)
+//     * @throws Exception 
+//     */
+//    public void testAppScenario6() throws Exception{
+//    	Scenario scenarioTest6 = new Scenario();
+//        assertFalse(scenarioTest6.scenario6(apikey));
+//    }
 }
