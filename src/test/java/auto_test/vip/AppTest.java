@@ -27,15 +27,15 @@ public class AppTest extends TestCase{
         return new TestSuite( AppTest.class );
     }
 
-//    /**
-//     * Rigourous Test scenario 1:-)
-//     * @throws Exception 
-//     */
-//    public void testAppScenario1() throws Exception{	
-//		Scenario scenarioTest1 = new Scenario();
-//        assertTrue( scenarioTest1.scenario1(apikey) );
-//    }
-//    
+    /**
+     * Rigourous Test scenario 1:-)
+     * @throws Exception 
+     */
+    public void testAppScenario1() throws Exception{	
+		Scenario scenarioTest1 = new Scenario();
+        assertTrue( scenarioTest1.scenario1(apikey) );
+    }
+    
     /**
      * Rigourous Test scenario 2:-)
      * @throws Exception 
