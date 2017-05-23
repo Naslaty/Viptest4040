@@ -44,15 +44,15 @@ public class AppTest extends TestCase{
 		Scenario scenarioTest2 = new Scenario();
         assertTrue( scenarioTest2.scenario2(apikey) );
     }
-//    
-//    /**
-//     * Rigourous Test scenario 3:-)
-//     * @throws Exception 
-//     */
-//    public void testAppScenario3() throws Exception{	
-//		Scenario scenarioTest3 = new Scenario();
-//        assertTrue( scenarioTest3.scenario3(apikey) );
-//    }
+    
+    /**
+     * Rigourous Test scenario 3:-)
+     * @throws Exception 
+     */
+    public void testAppScenario3() throws Exception{	
+		Scenario scenarioTest3 = new Scenario();
+        assertTrue( scenarioTest3.scenario3(apikey) );
+    }
 //    
 //    /**
 //     * Rigourous Test scenario 4:-)
