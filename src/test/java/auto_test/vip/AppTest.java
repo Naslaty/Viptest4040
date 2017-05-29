@@ -28,7 +28,7 @@ public class AppTest extends TestCase{
     }
 
     /**
-     * Rigourous Test scenario 1:-)
+     * Test scenario 1:-)
      * @throws Exception 
      */
     public void testAppScenario1() throws Exception{	
@@ -37,7 +37,7 @@ public class AppTest extends TestCase{
     }
     
     /**
-     * Rigourous Test scenario 2:-)
+     * Test scenario 2:-)
      * @throws Exception 
      */
     public void testAppScenario2() throws Exception{	
@@ -46,7 +46,7 @@ public class AppTest extends TestCase{
     }
     
     /**
-     * Rigourous Test scenario 3:-)
+     * Test scenario 3:-)
      * @throws Exception 
      */
     public void testAppScenario3() throws Exception{	
@@ -55,7 +55,7 @@ public class AppTest extends TestCase{
     }
     
     /**
-     * Rigourous Test scenario 4:-)
+     * Test scenario 4:-)
      * @throws Exception 
      */
     public void testAppScenario4() throws Exception{	
@@ -64,7 +64,7 @@ public class AppTest extends TestCase{
     }
     
     /**
-     * Rigourous Test scenario 5:-)
+     * Test scenario 5:-)
      * @throws Exception 
      */
     public void testAppScenario5() throws Exception{
@@ -75,7 +75,7 @@ public class AppTest extends TestCase{
     }
     
     /**
-     * Rigourous Test scenario 6:-)
+     * Test scenario 6:-)
      * @throws Exception 
      */
     public void testAppScenario6() throws Exception{

@@ -100,6 +100,7 @@ public class Scenario {
 		boolean bool = true;
 		String exeId = null;
 		//delete phase initialization
+		
 		DeleteExecutionConfiguration body = new DeleteExecutionConfiguration();
 		body.setDeleteFiles(true);
 
@@ -144,13 +145,13 @@ public class Scenario {
 		DefaultApi defaultApiClient6 = appScenario.initClient(prop.getProperty("viptest.additiontest.url"), key);
 		
 		//create and start an execution
-		Execution body = appScenario.initExecution("newScenario3", prop.getProperty("viptest.additiontest.pipelineidentifierString"), 1, 2);
+		Execution body = appScenario.initExecution("newScenario3.1", prop.getProperty("viptest.additiontest.pipelineidentifierString"), 1, 2);
 		Execution result = defaultApiClient6.initAndStartExecution(body);
 		String resId = result.getIdentifier(); 
 		
 		//create and start another execution
 		try{
-		body = appScenario.initExecution("newScenario3", prop.getProperty("viptest.additiontest.pipelineidentifierString"), 1, 2);
+		body = appScenario.initExecution("newScenario3.2", prop.getProperty("viptest.additiontest.pipelineidentifierString"), 1, 2);
 		result = defaultApiClient6.initAndStartExecution(body);
 		}catch(ApiException ae){
 			defaultApiClient6.killExecution(resId);
