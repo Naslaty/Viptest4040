@@ -1,6 +1,4 @@
-package auto_test.vip;
-
-import static org.junit.Assert.assertThat;
+package fr.insalyon.creatis.vip.vip_tester;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -29,15 +27,15 @@ public class AppTest extends TestCase{
         return new TestSuite( AppTest.class );
     }
 
-    /**
-     * Test scenario 1:-)
-     * @throws Exception 
-     */
-    public void testAppScenario1() throws Exception{	
-		Scenario scenarioTest1 = new Scenario();
-        assertTrue( scenarioTest1.scenario1(apikey) ); 
-    }
-    
+//    /**
+//     * Test scenario 1:-)
+//     * @throws Exception 
+//     */
+//    public void testAppScenario1() throws Exception{	
+//		Scenario scenarioTest1 = new Scenario();
+//        assertTrue( scenarioTest1.scenario1(apikey) );
+//    }
+//    
     /**
      * Test scenario 2:-)
      * @throws Exception 
@@ -60,18 +58,16 @@ public class AppTest extends TestCase{
      * Test scenario 4:-)
      * @throws Exception 
      */
-    public void testAppScenario4() throws Exception{	
-		Scenario scenarioTest4 = new Scenario();
-        assertTrue( scenarioTest4.scenario4(apikey) );
+    public void testAppScenario4() throws Exception{
+    	Scenario scenarioTest4 = new Scenario();
+        assertTrue(scenarioTest4.scenario4(apikey));
     }
     
     /**
      * Test scenario 5:-)
      * @throws Exception 
      */
-    public void testAppScenario5() throws Exception{
-    	
- 
+    public void testAppScenario5() throws Exception{	
     	Scenario scenarioTest5 = new Scenario();
         assertFalse(scenarioTest5.scenario5(apikey));
     }
@@ -84,4 +80,6 @@ public class AppTest extends TestCase{
     	Scenario scenarioTest6 = new Scenario();
         assertFalse(scenarioTest6.scenario6(apikey));
     }
+    
+
 }

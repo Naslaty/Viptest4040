@@ -20,17 +20,14 @@ public class ScenarioUpdateExe {
 	public boolean scenario2( String key) throws Exception{			
 		//execution history
 		String exeId = client.listExecutions().iterator().next().getIdentifier();
-		logger.debug("1");
 		assertNotNull("the execution Id is null",exeId);
 		
 		//check a particular execution
 		Execution result1 = client.getExecution(exeId);
-		logger.debug("2");
 		assertNotNull("the execution is null",result1);
 		
 		//modification of name parameter of the execution
 		String newName = vth.randomSelection();
-		logger.debug("3");
 		Execution body = vth.modifExecution(newName, 0L);
 		client.updateExecution(exeId, body);
 		

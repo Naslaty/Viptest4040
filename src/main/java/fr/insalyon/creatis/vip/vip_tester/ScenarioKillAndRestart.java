@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class Scenario3 {
+public class ScenarioKillAndRestart {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(Scenario3.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioKillAndRestart.class);
 	
 	
 	//tries kill a bugged execution end restart it
@@ -50,7 +50,7 @@ public class Scenario3 {
 	public static void main(String args[])throws Exception{
 		
 		String apikey = System.getProperty("apikey");
-		Scenario3 scenarioTest3 = new Scenario3();
+		ScenarioKillAndRestart scenarioTest3 = new ScenarioKillAndRestart();
 		logger.debug("Launch scenario 3");
 		logger.info("waited result: true");		
 		logger.info("Scenario 3 result: {}",scenarioTest3.scenario3(apikey));

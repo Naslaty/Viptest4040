@@ -81,11 +81,11 @@ public class VipTesterHelper {
 		return testExe;
 	}
 	
-	public Execution modifExecution(String newName, long newTimeout, String pipelineIdentifier){
+	public Execution modifExecution(String newName, long newTimeout){ // I can add pipelineId ??? 
 		Execution body = new Execution();
 		body.setName(newName);
 		body.setTimeout(newTimeout);
-		body.setPipelineIdentifier(pipelineIdentifier);
+		body.setPipelineIdentifier("AdditionTest/0.9");
 		return body;
 	}
 	
