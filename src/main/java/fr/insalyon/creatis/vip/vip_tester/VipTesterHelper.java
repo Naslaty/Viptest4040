@@ -35,6 +35,10 @@ public class VipTesterHelper {
 		return prop.getProperty("viptest.additiontest.pipelineidentifier");
 	}
 	
+	public String getAdditionTestPipelineIdString(){
+		return prop.getProperty("viptest.additiontest.pipelineidentifierstring");
+	}
+	
 	public String getAdditionTestTimeCheck(){
 		return prop.getProperty("viptest.additiontest.timecheck");
 	}
