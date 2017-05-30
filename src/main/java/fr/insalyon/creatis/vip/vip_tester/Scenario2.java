@@ -3,6 +3,7 @@ package fr.insalyon.creatis.vip.vip_tester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.Execution;
 
 import static org.junit.Assert.*;
@@ -12,17 +13,18 @@ import static org.hamcrest.Matchers.is;
 public class Scenario2 {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
+	private DefaultApi client = vth.getDefaultApi();
 	private static Logger logger = LoggerFactory.getLogger(Scenario2.class);
 		
 	//tries to modify an execution by changing name 
 	public boolean scenario2(String key) throws Exception{			
 		//execution history
-		String exeId = vth.defaultApiClient.listExecutions().iterator().next().getIdentifier();
+		String exeId = client.listExecutions().iterator().next().getIdentifier();
 		logger.debug("1");
 		assertNotNull("the execution Id is null",exeId);
 		
 		//check a particular execution
-		Execution result1 = vth.defaultApiClient.getExecution(exeId);
+		Execution result1 = client.getExecution(exeId);
 		logger.debug("2");
 		assertNotNull("the execution Id is null",result1);
 		
@@ -30,10 +32,10 @@ public class Scenario2 {
 		String newName = vth.randomSelection();
 		logger.debug("3");
 		Execution body = vth.modifExecution(newName, 0L, vth.getAdditionTestPipelineIdString());
-		vth.defaultApiClient.updateExecution(exeId, body);
+		client.updateExecution(exeId, body);
 		
 		//check execution modification
-		Execution result2 = vth.defaultApiClient.getExecution(exeId);
+		Execution result2 = client.getExecution(exeId);
 		assertNotNull("the execution Id is null",result2);
 		
 		boolean cond = !(result1.getName().equals(result2.getName())) || 
