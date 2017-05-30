@@ -20,10 +20,10 @@ public class VipTesterHelper {
 	- the api client is created 
 	 */
 	//public or private with a getter ???
-	public Properties prop = new Properties();
+	private Properties prop = new Properties();
 	private String apikey = null;
 	//public or private with a getter ???
-	public DefaultApi defaultApiClient;
+	private DefaultApi defaultApiClient;
 	
 	public VipTesterHelper(){
 		prop = propertiesExtraction(prop);
@@ -41,6 +41,10 @@ public class VipTesterHelper {
 	
 	public String getAdditionTestTimeCheck(){
 		return prop.getProperty("viptest.additiontest.timecheck");
+	}
+	
+	public DefaultApi getDefaultApi(){
+		return defaultApiClient;
 	}
 	
 	private Properties propertiesExtraction(Properties prop){
