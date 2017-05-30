@@ -1,7 +1,5 @@
 package auto_test.vip;
 
-import static org.junit.Assert.assertThat;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -35,7 +33,7 @@ public class AppTest extends TestCase{
      */
     public void testAppScenario1() throws Exception{	
 		Scenario scenarioTest1 = new Scenario();
-        assertTrue( scenarioTest1.scenario1(apikey) ); 
+        assertTrue( scenarioTest1.scenario1(apikey) );
     }
     
     /**
