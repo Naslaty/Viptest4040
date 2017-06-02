@@ -1,5 +1,6 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.Execution;
 import io.swagger.client.model.Execution.StatusEnum;
@@ -13,6 +14,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +30,22 @@ public class ScenarioExecutionProcess {
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
 	private static Logger logger = LoggerFactory.getLogger(ScenarioExecutionProcess.class);
+	
+	public class CallableTimeout implements Callable<Boolean>{
+		private ScheduledFuture<Boolean> expected = null;
+		
+		public Boolean call() throws InterruptedException, ExecutionException{
+			logger.debug("timeout call-->");
+			logger.debug("expected: {}", expected);
+			boolean b = expected.cancel(true);
+			logger.debug("cancel success {}",b);
+			return true;
+		}
+		
+		public void setExpected(ScheduledFuture<Boolean> expected) {
+			this.expected = expected;
+		}
+	}
 	
 	//tries to launch an execution an waits the end of it
 	public boolean scenario1(String key) throws Exception{	
@@ -60,20 +84,32 @@ public class ScenarioExecutionProcess {
 		assertThat("The status must be \"running\"", result.getStatus(), is(StatusEnum.RUNNING));
 		
 		//keep the identifier
-		String exeId = result.getIdentifier();
+		final String exeId = result.getIdentifier();
 		
-		// TODO : use  executorService to wait
-		while(result.getStatus().equals(StatusEnum.RUNNING)){
-			Thread.sleep(Long.valueOf(vth.getAdditionTestTimeCheck()));
-			//check the execution
-			result = client.getExecution(exeId);
-			
+		// TEST ExecutorService 1
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+		CallableTimeout callTimeout = new CallableTimeout();
+		ScheduledExecutorService executorT = Executors.newSingleThreadScheduledExecutor();
+		
+		Boolean isFinished = false;
+		ScheduledFuture<Boolean> timeout = executorT.schedule(callTimeout, 10,TimeUnit.MINUTES);
+		while(!isFinished){
+			 ScheduledFuture<Boolean>expected = executor.schedule(new Callable<Boolean>(){
+				 							public Boolean call() throws ApiException{
+				 								StatusEnum result = client.getExecution(exeId).getStatus();
+				 								logger.debug("new check	result: {}", result);
+				 								return result.equals(StatusEnum.FINISHED);
+				 							}}, 20, TimeUnit.SECONDS);
+			 callTimeout.setExpected(expected);
+			 isFinished = expected.get();
 		}
+		timeout.cancel(true);
+		executor.shutdownNow();
+	
+		assertThat("The status must be \"finished\" but it is", isFinished, is(true));
 		
-		assertThat("The status must be \"finished\" but it is", result.getStatus(), is(StatusEnum.FINISHED));
-		
-		return result.getStatus().equals(StatusEnum.FINISHED);
-		
+		return isFinished.equals(true);		
 	}
 		
 	public static void main(String[] args) throws Exception{
@@ -83,6 +119,5 @@ public class ScenarioExecutionProcess {
 		logger.debug("Launch scenario 1");
 		logger.info("waited result: true");		
 		logger.info("Scenario 1 result: {}",scenarioTest1.scenario1(apikey));
-
 	}
 }
