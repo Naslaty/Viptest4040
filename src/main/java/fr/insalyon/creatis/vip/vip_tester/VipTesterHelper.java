@@ -19,10 +19,8 @@ public class VipTesterHelper {
 	- the api key is get
 	- the api client is created 
 	 */
-	//public or private with a getter ???
 	private Properties prop = new Properties();
 	private String apikey = null;
-	//public or private with a getter ???
 	private DefaultApi defaultApiClient;
 	
 	public VipTesterHelper(){
