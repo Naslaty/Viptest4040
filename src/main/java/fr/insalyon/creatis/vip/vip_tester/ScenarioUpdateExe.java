@@ -75,6 +75,6 @@ public class ScenarioUpdateExe {
 		
 		logger.debug("Launch scenario 5");
 		logger.info("waited result: true");
-		logger.info("Scenario 2 result: {}",scenarioTest2.scenario2(apikey));
+		logger.info("Scenario 5 result: {}",scenarioTest2.scenario5(apikey));
 	}
 }
