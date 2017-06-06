@@ -14,11 +14,6 @@ import io.swagger.client.model.Execution;
 
 public class VipTesterHelper {
 	
-	/* TODO : create constructor where 
-	- the properties are extracted
-	- the api key is get
-	- the api client is created 
-	 */
 	private Properties prop = null;
 	private String apikey = null;
 	private DefaultApi defaultApiClient = null;
@@ -99,7 +94,6 @@ public class VipTesterHelper {
     		table[i] = (char)j;
     		j++;
     	}
-    	//System.out.println(table);
 
     	for(i=0; i<15;i++){
 	    	Random randomer = new Random();
