@@ -3,6 +3,7 @@ package fr.insalyon.creatis.vip.vip_tester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.Execution;
 
@@ -44,27 +45,15 @@ public class ScenarioUpdateExeTest {
 		assertThat("Timeout and name not modified", cond, is(true));
 	}
 	
-	//tries to modify an execution but put the same name and the same timeout so NO modification
-	@Test
+	//tries to modify an execution which doesn't exist
+	@Test(expected = ApiException.class)
 	public void scenario5() throws Exception{			
 		//find an execution to modify it
-		String exeId = client.listExecutions().iterator().next().getIdentifier();
+		String exeId = vth.randomSelection();
 		assertNotNull("the execution Id is null",exeId);
 		
 		//check a particular execution
-		Execution result1 = client.getExecution(exeId);
-		assertNotNull("the execution is null",result1);
-		
-		//modification of name parameter of the execution
-		Execution body = vth.modifExecution(result1.getName(), result1.getTimeout());
-		client.updateExecution(exeId, body);
-		
-		//check execution modification
-		Execution result2 = client.getExecution(exeId);
-		assertNotNull("the execution is null",result2);
-		
-		boolean cond = (result1.getName().equals(result2.getName())) &&
-					   (result1.getTimeout().equals(result2.getTimeout()));
-		
+		client.getExecution(exeId);
+		throw new RuntimeException("That particular execution doesn't exist");	
 	}
 }
