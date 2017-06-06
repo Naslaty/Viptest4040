@@ -36,12 +36,8 @@ public class ScenarioKillAndRestartTest {
 		//kill the bugged execution and check its status
 		client.killExecution(resId);
 		result = client.getExecution(resId);
-		assertThat("the execution is on killed", result.getStatus(), is(StatusEnum.KILLED));
-		
-		Boolean test1 = result.getStatus().equals(StatusEnum.KILLED);
-		assertThat("The bugged execution is not killed", result.getStatus(), is(StatusEnum.KILLED));
-
-		
+		assertThat("the bugged execution is not killed", result.getStatus(), is(StatusEnum.KILLED));
+				
 		//create and restart the execution check its status
 		body = vth.initExecution("newScenario3", 1, 2);
 		result = client.initAndStartExecution(body);
@@ -49,8 +45,6 @@ public class ScenarioKillAndRestartTest {
 		resId = result.getIdentifier();
 		client.killExecution(resId);
 		
-		//boolean test2 = result.getStatus().equals(StatusEnum.RUNNING);
 		assertThat("The new execution is not launch", result.getStatus(), is(StatusEnum.RUNNING));
-		//return test1 && test2;
 	}
 }
