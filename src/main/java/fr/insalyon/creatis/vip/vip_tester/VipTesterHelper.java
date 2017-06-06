@@ -19,12 +19,12 @@ public class VipTesterHelper {
 	- the api key is get
 	- the api client is created 
 	 */
-	private Properties prop = new Properties();
+	private Properties prop = null;
 	private String apikey = null;
-	private DefaultApi defaultApiClient;
+	private DefaultApi defaultApiClient = null;
 	
 	public VipTesterHelper(){
-		prop = propertiesExtraction(prop);
+		prop = initProperties();
 		this.apikey = System.getProperty("apikey");
 		defaultApiClient = initClient(prop.getProperty("viptest.additiontest.url"), apikey);
 	}
@@ -45,7 +45,8 @@ public class VipTesterHelper {
 		return defaultApiClient;
 	}
 	
-	private Properties propertiesExtraction(Properties prop){
+	private Properties initProperties(){
+		Properties prop = new Properties();
 		try{
 			FileInputStream in = new FileInputStream("src/main/resources/testVipAdditiontest.properties");
 			try{
