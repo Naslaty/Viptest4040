@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 import org.junit.Test;
 
@@ -34,7 +35,24 @@ public class ScenarioExecutionProcessTest {
 	private DefaultApi client = vth.getDefaultApi();
 	private static Logger logger = LoggerFactory.getLogger(ScenarioExecutionProcess.class);
 	
-	public boolean searchPipelineId() throws Exception{
+	
+	//tries to launch an execution an waits the end of it
+	@Test
+	public void scenario1Test() throws Exception{
+		// Search if the pipeline exist
+		searchPipelineId();
+		
+		//check parameters for a specified pipeline
+		checkPipelineParameter();
+		
+		//create and start an execution and check its status
+		String executionId = launchExecution();
+				
+		//check the execution status every 20s + timeout=10mn
+		checkExecutionProcess(executionId);
+	}
+	
+	public void searchPipelineId() throws Exception{
 		String pipelineId = null;
 		Iterator<Pipeline> listPipelineResultIt = client.listPipelines(null).iterator();
 
@@ -46,15 +64,17 @@ public class ScenarioExecutionProcessTest {
 				isFound = true;
 			}			
 		}
-		return isFound;
+		assertThat("AdditionTest/0.9 is not present", isFound, is(true));
 	}
 	
-	public void checkPipelineParameter(Pipeline pipeline){
-		List<PipelineParameter> pipelineParam = pipeline.getParameters();
+	//check pipeline parameters
+	public void checkPipelineParameter() throws ApiException{
+		Pipeline pipelineResult = client.getPipeline(vth.getAdditionTestPipelineId());
+		List<PipelineParameter> pipelineParam = pipelineResult.getParameters();
 		assertThat("It must have 3 parameters", pipelineParam.size(), is(3));
 		
 		int cmptInt = 0;
-		for(PipelineParameter pp : pipeline.getParameters()){
+		for(PipelineParameter pp : pipelineResult.getParameters()){
 			if(!(pp.getName().equals("results-directory"))){
 				if(pp.getType().equals(ParameterType.STRING)){
 					cmptInt++;
@@ -65,7 +85,14 @@ public class ScenarioExecutionProcessTest {
 		return;
 	}
 	
-	public boolean checkExecutionProcess(boolean isFinished, final String executionId) throws Exception{
+	// launch an execution and check its status
+	public String launchExecution() throws Exception{
+		Execution result = client.initAndStartExecution(vth.initExecution("testScenario1", 40, 41));
+		assertThat("The status must be \"running\"", result.getStatus(), is(StatusEnum.RUNNING));
+		return result.getIdentifier();
+	}
+	
+	public void checkExecutionProcess(final String executionId) throws Exception{
 		// TEST ExecutorService 1
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 
@@ -78,6 +105,7 @@ public class ScenarioExecutionProcessTest {
 		};
 		
 		ScheduledFuture<Boolean> timeout = executor.schedule(callTimeout, 10,TimeUnit.MINUTES);
+		boolean isFinished = false;
 		while(!isFinished){
 			 ScheduledFuture<Boolean>expected = executor.schedule(callable, 20, TimeUnit.SECONDS);
 			 callTimeout.setExpected(expected);
@@ -85,7 +113,9 @@ public class ScenarioExecutionProcessTest {
 		}
 		timeout.cancel(true);
 		executor.shutdownNow();
-		return isFinished;
+		logger.debug("prinf of final execution returnedFiles: {}",client.getExecution(executionId).getReturnedFiles());
+		assertThat("Output file is missing", client.getExecution(executionId).getReturnedFiles().size(), is(not(0)));
+		return;
 	}
 	
 	public class CallableTimeout implements Callable<Boolean>{
@@ -100,22 +130,5 @@ public class ScenarioExecutionProcessTest {
 		}
 	}
 	
-	//tries to launch an execution an waits the end of it
-	@Test
-	public void scenario1Test() throws Exception{					
-		assertThat("AdditionTest/0.9 is not present", searchPipelineId(), is(true));
-		
-		//check parameters for a specified pipeline
-		Pipeline pipelineResult = client.getPipeline(vth.getAdditionTestPipelineId());
-		checkPipelineParameter(pipelineResult);
-		
-		//create and start an execution
-		Execution result = client.initAndStartExecution(vth.initExecution("testScenario1", 40, 41));
-		assertThat("The status must be \"running\"", result.getStatus(), is(StatusEnum.RUNNING));		
-		//keep the identifier
-		final String executionId = result.getIdentifier();
-				
-		boolean isFinished = false;
-		assertThat("The status must be \"finished\" but it is", checkExecutionProcess(isFinished, executionId), is(true));	
-	}
+
 }
