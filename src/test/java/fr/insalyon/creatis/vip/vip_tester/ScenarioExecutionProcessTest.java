@@ -92,6 +92,7 @@ public class ScenarioExecutionProcessTest {
 		return result.getIdentifier();
 	}
 	
+	//check the execution status every 20s + timeout=10mn
 	public void checkExecutionProcess(final String executionId) throws Exception{
 		// TEST ExecutorService 1
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
