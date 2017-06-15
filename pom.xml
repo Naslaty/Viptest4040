@@ -58,9 +58,9 @@
 
   <dependencies>
     <dependency>
-   		<groupId>io.swagger</groupId>
-     	<artifactId>new-swagger-java-client</artifactId>
-     	<version>1.2</version>
+   		<groupId>fr.insalyon.creatis.vip</groupId>
+     	<artifactId>java-client</artifactId>
+     	<version>0.3</version>
     </dependency>
     <dependency>
 	    <groupId>org.slf4j</groupId>
