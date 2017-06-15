@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-import io.swagger.client.ApiClient;
-import io.swagger.client.api.DefaultApi;
-import io.swagger.client.model.Execution;
+import fr.insalyon.creatis.vip.java_client.ApiClient;
+import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client.model.Execution;
+
+
 
 public class VipTesterHelper {
 	
