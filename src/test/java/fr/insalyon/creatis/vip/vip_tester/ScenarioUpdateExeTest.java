@@ -1,11 +1,12 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
+import fr.insalyon.creatis.vip.vip_tester.VipTesterHelper;
+import fr.insalyon.creatis.vip.java_client.ApiException;
+import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client.model.Execution;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.api.DefaultApi;
-import io.swagger.client.model.Execution;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +18,7 @@ public class ScenarioUpdateExeTest {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(ScenarioUpdateExe.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioUpdateExeTest.class);
 		
 	//tries to modify an execution by changing name 
 	@Test
@@ -55,5 +56,5 @@ public class ScenarioUpdateExeTest {
 		//check a particular execution
 		client.getExecution(exeId);
 		throw new RuntimeException("That particular execution doesn't exist");	
-	}
+}
 }

@@ -1,12 +1,14 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
+import fr.insalyon.creatis.vip.vip_tester.VipTesterHelper;
+
+import fr.insalyon.creatis.vip.java_client.ApiException;
+import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client.model.Execution;
+import fr.insalyon.creatis.vip.java_client.model.Execution.StatusEnum;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.api.DefaultApi;
-import io.swagger.client.model.Execution;
-import io.swagger.client.model.Execution.StatusEnum;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,12 +16,10 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
-
 public class ScenarioCheckUserRightTest {
-	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(ScenarioCheckUserRight.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioCheckUserRightTest.class);
 	
 	@Test
 	public void scenario6() throws Exception{	
@@ -40,6 +40,5 @@ public class ScenarioCheckUserRightTest {
 		client.killExecution(resId);
 		client.killExecution(result.getIdentifier());
 		throw new RuntimeException(" with that type of right you can't launch 2 execution in the same time");
-
 	}
 }
