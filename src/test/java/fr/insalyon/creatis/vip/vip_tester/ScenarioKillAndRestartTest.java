@@ -18,7 +18,7 @@ public class ScenarioKillAndRestartTest {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(ScenarioKillAndRestart.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioKillAndRestartTest.class);
 	
 	
 	//tries kill a bugged execution end restart it

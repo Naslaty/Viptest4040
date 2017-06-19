@@ -1,13 +1,13 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
+import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client.model.DeleteExecutionConfiguration;
+import fr.insalyon.creatis.vip.java_client.model.Execution;
+
 import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.swagger.client.api.DefaultApi;
-import io.swagger.client.model.DeleteExecutionConfiguration;
-import io.swagger.client.model.Execution;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,7 +19,7 @@ public class ScenarioDeleteOutputFileTest {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(ScenarioKillAndRestart.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioKillAndRestartTest.class);
 	
 	@Test
 	public void scenario4() throws Exception{

@@ -32,7 +32,7 @@ public class ScenarioExecutionProcessTest {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
-	private static Logger logger = LoggerFactory.getLogger(ScenarioExecutionProcess.class);
+	private static Logger logger = LoggerFactory.getLogger(ScenarioExecutionProcessTest.class);
 	
 		//tries to launch an execution an waits the end of it
 		@Test
