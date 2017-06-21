@@ -58,10 +58,20 @@
 
   <dependencies>
     <dependency>
-   		<groupId>fr.insalyon.creatis.vip</groupId>
-     	<artifactId>java-client</artifactId>
-     	<version>0.3</version>
+   	  <groupId>fr.insalyon.creatis.vip</groupId>
+      <artifactId>client-java-parent</artifactId>
+      <version>0.3</version>
     </dependency>
+    <dependency>
+   	  <groupId>fr.insalyon.creatis.vip</groupId>
+      <artifactId>java-client</artifactId>
+      <version>0.3</version>
+    </dependency>
+    <dependency>
+   	  <groupId>fr.insalyon.creatis.vip</groupId>
+      <artifactId>java-client-data-extension</artifactId>
+      <version>0.3</version>
+    </dependency>  
     <dependency>
 	    <groupId>org.slf4j</groupId>
 	    <artifactId>slf4j-api</artifactId>
