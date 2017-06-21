@@ -59,11 +59,6 @@
   <dependencies>
     <dependency>
    	  <groupId>fr.insalyon.creatis.vip</groupId>
-      <artifactId>client-java-parent</artifactId>
-      <version>0.3</version>
-    </dependency>
-    <dependency>
-   	  <groupId>fr.insalyon.creatis.vip</groupId>
       <artifactId>java-client</artifactId>
       <version>0.3</version>
     </dependency>
@@ -73,19 +68,19 @@
       <version>0.3</version>
     </dependency>  
     <dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-api</artifactId>
-	    <version>1.7.25</version>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-api</artifactId>
+	  <version>1.7.25</version>
 	</dependency>
 	<dependency>
-	    <groupId>ch.qos.logback</groupId>
-	    <artifactId>logback-classic</artifactId>
-	    <version>1.2.2</version>
+	  <groupId>ch.qos.logback</groupId>
+	  <artifactId>logback-classic</artifactId>
+	  <version>1.2.2</version>
 	</dependency>
   	<dependency>
-    	<groupId>junit</groupId>
-      	<artifactId>junit</artifactId>
-      	<version>4.12</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
       <!-- 	<scope>test</scope> -->
     </dependency>
      <dependency>
