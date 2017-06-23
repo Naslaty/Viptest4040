@@ -1,8 +1,8 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
-import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client.model.DeleteExecutionConfiguration;
-import fr.insalyon.creatis.vip.java_client.model.Execution;
+import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client_processing.model.DeleteExecutionConfiguration;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
 
 import java.util.Iterator;
 

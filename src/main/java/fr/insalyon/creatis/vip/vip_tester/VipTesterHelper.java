@@ -8,22 +8,22 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-import fr.insalyon.creatis.vip.java_client.ApiClient;
-import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client.model.Execution;
-
-
+import fr.insalyon.creatis.vip.java_client_processing.ApiClient;
+import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
 
 public class VipTesterHelper {
 	
 	private Properties prop = null;
 	private String apikey = null;
 	private DefaultApi defaultApiClient = null;
+	private fr.insalyon.creatis.vip.java_client_data.api.DefaultApi defaultApiClientData = null;
 	
 	public VipTesterHelper(){
 		prop = initProperties();
 		this.apikey = System.getProperty("apikey");
 		defaultApiClient = initClient(prop.getProperty("viptest.additiontest.url"), apikey);
+		defaultApiClientData = initClientData(prop.getProperty("viptest.additiontest.url"), apikey);
 	}
 	
 	public String getAdditionTestPipelineId(){
@@ -40,6 +40,10 @@ public class VipTesterHelper {
 	
 	public DefaultApi getDefaultApi(){
 		return defaultApiClient;
+	}
+	
+	public fr.insalyon.creatis.vip.java_client_data.api.DefaultApi getdefaultApiData(){
+		return defaultApiClientData;
 	}
 	
 	private Properties initProperties(){
@@ -65,14 +69,21 @@ public class VipTesterHelper {
 		return new DefaultApi(testAPiclient);
 	}
 	
-	public Execution initExecution(String name, int n1, int n2){
+	private static fr.insalyon.creatis.vip.java_client_data.api.DefaultApi initClientData(String url, String apiKey){
+		fr.insalyon.creatis.vip.java_client_data.ApiClient testAPiclient = new fr.insalyon.creatis.vip.java_client_data.ApiClient();
+		testAPiclient.setBasePath(url);
+		testAPiclient.setApiKey(apiKey);
+		return new fr.insalyon.creatis.vip.java_client_data.api.DefaultApi(testAPiclient);
+	}
+	
+	public Execution initExecution(String directory, String name, int n1, int n2){
 		Execution testExe = new Execution();
 		testExe.setName(name);
 		testExe.setPipelineIdentifier("AdditionTest/0.9");
 		Map<String,Object> testMap = new HashMap<String, Object>();
 		testMap.put("number1", n1);
 		testMap.put("number2", n2);
-		testMap.put("results-directory", "/vip/Home");
+		testMap.put("results-directory", directory);
 		testExe.setInputValues(testMap);
 		return testExe;
 	}

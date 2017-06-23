@@ -1,12 +1,12 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
-import fr.insalyon.creatis.vip.java_client.ApiException;
-import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client.model.Execution;
-import fr.insalyon.creatis.vip.java_client.model.Execution.StatusEnum;
-import fr.insalyon.creatis.vip.java_client.model.ParameterType;
-import fr.insalyon.creatis.vip.java_client.model.Pipeline;
-import fr.insalyon.creatis.vip.java_client.model.PipelineParameter;
+import fr.insalyon.creatis.vip.java_client_processing.ApiException;
+import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution.StatusEnum;
+import fr.insalyon.creatis.vip.java_client_processing.model.ParameterType;
+import fr.insalyon.creatis.vip.java_client_processing.model.Pipeline;
+import fr.insalyon.creatis.vip.java_client_processing.model.PipelineParameter;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -14,6 +14,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import java.util.Base64;
+import javax.xml.bind.DatatypeConverter;
 
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +35,7 @@ public class ScenarioExecutionProcessTest {
 	
 	private VipTesterHelper vth = new VipTesterHelper();
 	private DefaultApi client = vth.getDefaultApi();
+	private fr.insalyon.creatis.vip.java_client_data.api.DefaultApi clientData = vth.getdefaultApiData();
 	private static Logger logger = LoggerFactory.getLogger(ScenarioExecutionProcessTest.class);
 	
 		//tries to launch an execution an waits the end of it
@@ -43,11 +47,22 @@ public class ScenarioExecutionProcessTest {
 			//check parameters for a specified pipeline
 			checkPipelineParameter();
 			
+			// create a new path where the future result will be stocked
+			newPath();
+			
 			//create and start an execution and check its status
 			String executionId = launchExecution();
 					
 			//check the execution status every 20s + timeout=10mn
 			checkExecutionProcess(executionId);
+			
+			// download the content of the result file and delete newPath
+			String executionResult = download(executionId);
+			
+//			byte[] decodedResult = Base64.getDecoder().;
+			String decoded = new String(DatatypeConverter.parseBase64Binary(executionResult));
+			logger.debug("decoded result: {}", decoded);
+			assertThat("The good result is 1",decoded, is("1"));
 		}
 		
 		public void searchPipelineId() throws Exception{
@@ -83,9 +98,15 @@ public class ScenarioExecutionProcessTest {
 			return;
 		}
 		
+		// create a new path where the future result will be stocked 
+		public void newPath() throws Exception{
+			clientData.createPath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath");
+			assertThat("newPath was not created",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"), is(true));
+		}
+		
 		// launch an execution and check its status
 		public String launchExecution() throws Exception{
-			Execution result = client.initAndStartExecution(vth.initExecution("testScenario1", 40, 41));
+			Execution result = client.initAndStartExecution(vth.initExecution("/vip/Home/newPath","testScenario1", 0, 1));
 			assertThat("The status must be \"running\"", result.getStatus(), is(StatusEnum.RUNNING));
 			return result.getIdentifier();
 		}
@@ -111,10 +132,24 @@ public class ScenarioExecutionProcessTest {
 				 isFinished = expected.get();
 			}
 			timeout.cancel(true);
-			executor.shutdownNow();
-			logger.debug("prinf of final execution returnedFiles: {}",client.getExecution(executionId).getReturnedFiles());
+			executor.shutdownNow();	
+
 			assertThat("Output file is missing", client.getExecution(executionId).getReturnedFiles().size(), is(not(0)));
 			return;
+		}
+		
+		// download the content of the result file and delete newPath
+		public String download(String executionId) throws Exception{
+			String returnedFile = client.getExecution(executionId).getReturnedFiles().get("output_file").get(0);
+			String[] split = returnedFile.split("/");
+//			for(int i=0; i<split.length; i++){
+//				logger.debug("splitted result[{}]: {}", i, split[i]);				
+//			}
+			String contentUri = "vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"+split[6]+"/"+split[7];
+			String ExecutionResult = clientData.downloadFile(contentUri);
+			clientData.deletePath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");
+//			assertThat("newPath directory always exists", clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"), is(false));
+			return ExecutionResult;
 		}
 		
 		public class CallableTimeout implements Callable<Boolean>{

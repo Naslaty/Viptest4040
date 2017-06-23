@@ -15,51 +15,51 @@
   </properties>
   
   <build>
-  	<plugins>
-  		<plugin>
-	        <groupId>org.codehaus.mojo</groupId>
-	        <artifactId>build-helper-maven-plugin</artifactId>
-	        <version>1.10</version>
-	        <executions>
-	        	<execution>
-		            <id>add_sources</id>
-		            <phase>generate-sources</phase>
-		            <goals>
-		            	<goal>add-source</goal>
-		            </goals>
-		            <configuration>
-		            	<sources>
-		                	<source>src/main/java</source>
-		              	</sources>
-		            </configuration>
-	          	</execution>
-	          	<execution>
-		            <id>add_test_sources</id>
-		            <phase>generate-test-sources</phase>
-		            <goals>
-		            	<goal>add-test-source</goal>
-		            </goals>
-		            <configuration>
-		            	<sources>
-		                	<source>src/test/java</source>
-		            	</sources>
-		            </configuration>
-	          	</execution>
-	        </executions>
-		</plugin>
+    <plugins>
+  	  <plugin>
+	    <groupId>org.codehaus.mojo</groupId>
+	    <artifactId>build-helper-maven-plugin</artifactId>
+	    <version>1.10</version>
+	    <executions>
+	      <execution>
+		    <id>add_sources</id>
+		    <phase>generate-sources</phase>
+		    <goals>
+		      <goal>add-source</goal>
+		    </goals>
+		    <configuration>
+		      <sources>
+		        <source>src/main/java</source>
+		      </sources>
+		    </configuration>
+	      </execution>
+	      <execution>
+		    <id>add_test_sources</id>
+		    <phase>generate-test-sources</phase>
+		    <goals>
+		      <goal>add-test-source</goal>
+		    </goals>
+		    <configuration>
+		      <sources>
+		        <source>src/test/java</source>
+		      </sources>
+		    </configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
 	</plugins>
      
   	<resources>
-  		<resource>
-  			<directory> src/main/resources </directory>
-  		</resource>
-  	</resources>
+      <resource>
+  	    <directory> src/main/resources </directory>
+  	  </resource>
+    </resources>
   </build>
 
   <dependencies>
     <dependency>
    	  <groupId>fr.insalyon.creatis.vip</groupId>
-      <artifactId>java-client</artifactId>
+      <artifactId>java-client-processing</artifactId>
       <version>0.3</version>
     </dependency>
     <dependency>
@@ -87,6 +87,6 @@
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
       <version>1.3.RC2</version>
-  </dependency>
+    </dependency>
   </dependencies>
 </project>

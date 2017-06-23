@@ -2,10 +2,10 @@ package fr.insalyon.creatis.vip.vip_tester;
 
 import fr.insalyon.creatis.vip.vip_tester.VipTesterHelper;
 
-import fr.insalyon.creatis.vip.java_client.ApiException;
-import fr.insalyon.creatis.vip.java_client.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client.model.Execution;
-import fr.insalyon.creatis.vip.java_client.model.Execution.StatusEnum;
+import fr.insalyon.creatis.vip.java_client_processing.ApiException;
+import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
+import fr.insalyon.creatis.vip.java_client_processing.model.Execution.StatusEnum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +24,14 @@ public class ScenarioCheckUserRightTest {
 	@Test
 	public void scenario6() throws Exception{	
 		//create and start an execution
-		Execution body = vth.initExecution("newScenario3", 1, 2);
+		Execution body = vth.initExecution("vip/Home", "newScenario3", 1, 2);
 		Execution result = client.initAndStartExecution(body);
 		assertThat("the execution is not running", result.getStatus(), is(StatusEnum.RUNNING));
 		String resId = result.getIdentifier(); 
 		
 		//create and start another execution
 		try{
-			body = vth.initExecution("newScenario3", 1, 2);
+			body = vth.initExecution("vip/Home", "newScenario3", 1, 2);
 			result = client.initAndStartExecution(body);
 		}catch(ApiException ae){
 			client.killExecution(resId);
