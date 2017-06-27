@@ -60,9 +60,10 @@ public class ScenarioExecutionProcessTest {
 			String executionResult = download(executionId);
 			
 //			byte[] decodedResult = Base64.getDecoder().;
+			logger.debug("exeRes: {}",executionResult);
 			String decoded = new String(DatatypeConverter.parseBase64Binary(executionResult));
 			logger.debug("decoded result: {}", decoded);
-			assertThat("The good result is 1",decoded, is("1"));
+			assertThat("The good result is 1",decoded, is("1\n"));
 		}
 		
 		public void searchPipelineId() throws Exception{
@@ -148,7 +149,8 @@ public class ScenarioExecutionProcessTest {
 			String contentUri = "vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"+split[6]+"/"+split[7];
 			String ExecutionResult = clientData.downloadFile(contentUri);
 			clientData.deletePath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");
-//			assertThat("newPath directory always exists", clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"), is(false));
+			logger.debug("is exit: {}",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"));
+//			assertThat("newPath directory always exists", clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"), is(false));
 			return ExecutionResult;
 		}
 		
