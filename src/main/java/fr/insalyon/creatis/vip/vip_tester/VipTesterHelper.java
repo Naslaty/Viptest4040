@@ -8,16 +8,16 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
-import fr.insalyon.creatis.vip.java_client_processing.ApiClient;
-import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
+import fr.insalyon.creatis.vip.client.processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.client.processing.ApiClient;
+import fr.insalyon.creatis.vip.client.processing.model.Execution;
 
 public class VipTesterHelper {
 	
 	private Properties prop = null;
 	private String apikey = null;
 	private DefaultApi defaultApiClient = null;
-	private fr.insalyon.creatis.vip.java_client_data.api.DefaultApi defaultApiClientData = null;
+	private fr.insalyon.creatis.vip.client.data.api.DefaultApi defaultApiClientData = null;
 	
 	public VipTesterHelper(){
 		prop = initProperties();
@@ -42,7 +42,7 @@ public class VipTesterHelper {
 		return defaultApiClient;
 	}
 	
-	public fr.insalyon.creatis.vip.java_client_data.api.DefaultApi getdefaultApiData(){
+	public fr.insalyon.creatis.vip.client.data.api.DefaultApi getdefaultApiData(){
 		return defaultApiClientData;
 	}
 	
@@ -69,11 +69,11 @@ public class VipTesterHelper {
 		return new DefaultApi(testAPiclient);
 	}
 	
-	private static fr.insalyon.creatis.vip.java_client_data.api.DefaultApi initClientData(String url, String apiKey){
-		fr.insalyon.creatis.vip.java_client_data.ApiClient testAPiclient = new fr.insalyon.creatis.vip.java_client_data.ApiClient();
+	private static fr.insalyon.creatis.vip.client.data.api.DefaultApi initClientData(String url, String apiKey){
+		fr.insalyon.creatis.vip.client.data.ApiClient testAPiclient = new fr.insalyon.creatis.vip.client.data.ApiClient();
 		testAPiclient.setBasePath(url);
 		testAPiclient.setApiKey(apiKey);
-		return new fr.insalyon.creatis.vip.java_client_data.api.DefaultApi(testAPiclient);
+		return new fr.insalyon.creatis.vip.client.data.api.DefaultApi(testAPiclient);
 	}
 	
 	public Execution initExecution(String directory, String name, int n1, int n2){

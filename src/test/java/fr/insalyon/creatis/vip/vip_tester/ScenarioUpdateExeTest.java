@@ -1,9 +1,9 @@
 package fr.insalyon.creatis.vip.vip_tester;
 
 import fr.insalyon.creatis.vip.vip_tester.VipTesterHelper;
-import fr.insalyon.creatis.vip.java_client_processing.ApiException;
-import fr.insalyon.creatis.vip.java_client_processing.api.DefaultApi;
-import fr.insalyon.creatis.vip.java_client_processing.model.Execution;
+import fr.insalyon.creatis.vip.client.processing.ApiException;
+import fr.insalyon.creatis.vip.client.processing.api.DefaultApi;
+import fr.insalyon.creatis.vip.client.processing.model.Execution;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
