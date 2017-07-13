@@ -51,27 +51,26 @@ public class ScenarioExecutionProcessTest {
 			newPath();
 			
 			String executionId = null;
+			String executionResult = null;
 			try{
-			//create and start an execution and check its status
-			executionId = launchExecution();
-					
-			//check the execution status every 20s + timeout=10mn
-			checkExecutionProcess(executionId);
+				//create and start an execution and check its status
+				executionId = launchExecution();
+			
+				//check the execution status every 20s + timeout=10mn
+				checkExecutionProcess(executionId);
+			
+				// download the content of the result file and delete newPath
+				executionResult = download(executionId);			
 			}catch(Exception e){
 				
 			}
 			finally{
-				clientData.deletePath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");				
+				logger.debug("in finally bloc");
+				if(clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/")){
+					clientData.deletePath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");
+				}
 			}
-			
-			// download the content of the result file and delete newPath
-			String executionResult = download(executionId);
-//			
-//			byte[] decodedResult = Base64.getDecoder().;
-//			logger.debug("exeRes: {}",executionResult);
-//			String decoded = new String(DatatypeConverter.parseBase64Binary(executionResult));
-//			logger.debug("decoded result: {}", decoded);
-//			assertThat("The good result is 1",decoded, is("1\n"));
+			logger.debug("result: {}", executionResult);
 		}
 		
 		public void searchPipelineId() throws Exception{
@@ -109,8 +108,8 @@ public class ScenarioExecutionProcessTest {
 		
 		// create a new path where the future result will be stocked 
 		public void newPath() throws Exception{
-			clientData.createPath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath");
-			assertThat("newPath was not created",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"), is(true));
+			clientData.createPath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");
+			assertThat("newPath was not created",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"), is(true));
 		}
 		
 		// launch an execution and check its status
@@ -150,18 +149,15 @@ public class ScenarioExecutionProcessTest {
 		// download the content of the result file and delete newPath
 		public String download(String executionId) throws Exception{
 			String returnedFile = client.getExecution(executionId).getReturnedFiles().get("output_file").get(0);
-			logger.debug("returnedfile: {}", returnedFile);
 			String[] split = returnedFile.split("/");
-//			for(int i=0; i<split.length; i++){
-//				logger.debug("splitted result[{}]: {}", i, split[i]);				
-//			}
 			String contentUri = "vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"+split[6]+"/"+split[7];
 			String ExecutionResult = clientData.downloadFile(contentUri);
 			Thread.sleep(2000);
 			clientData.deletePath("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/");
-			logger.debug("is exit: {}",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"));
-			Thread.sleep(2000);
-			assertThat("newPath directory always exists", clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"), is(false));
+			logger.debug("is exit before wait: {}",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"));
+			Thread.sleep(3000);
+			logger.debug("is exit after wait of 5s: {}",clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath"));
+			assertThat("newPath directory is not deleted", clientData.doesPathExists("vip://vip.creatis.insa-lyon.fr/vip/Home/newPath/"), is(false));
 			return ExecutionResult;
 		}
 		
